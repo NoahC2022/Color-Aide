@@ -17,9 +17,11 @@ export default function ImageUploader() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start h-screen">
+    <div className="flex flex-col items-center justify-start">
       <h2 className="text-2xl mb-4">Upload an Image</h2>
+      <div className=''>
       <input type="file" onChange={handleImageUpload} className="mb-4" />
+        </div>
       {selectedImage && (
         <div>
           <img src={selectedImage} alt="Uploaded" className="max-w-xs mx-auto" />

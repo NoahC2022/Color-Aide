@@ -1,6 +1,10 @@
 
 hidden = [".config", "package-lock.json"]
-run = "npm run start"
+run = "npm run dev"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
 
 [[hints]]
 regex = "Error \\[ERR_REQUIRE_ESM\\]"

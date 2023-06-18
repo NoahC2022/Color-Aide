@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.14",
+    "axios": "^1.4.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "eslint": "8.42.0",
@@ -23,7 +24,9 @@
     "react-dom": "18.2.0",
     "react-eyedrop": "^5.4.2",
     "react-icons": "^4.9.0",
+    "react-spinners": "^0.13.8",
     "tailwindcss": "^3.3.2",
+    "tinycolor2": "^1.6.0",
     "uuid": "^9.0.0"
   },
   "browser": {
