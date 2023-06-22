@@ -11,11 +11,10 @@ import { saveAs } from 'file-saver';
 import { Configuration, OpenAIApi } from 'openai';
 var fs = require('fs');
 
-const mySecret = process.env['GPT_KEY'];
-console.log(mySecret);
+const openAIAPI = process.env.OPENAI_API;
 
 const config = new Configuration({
-  apiKey: "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",
+  apiKey: openAIAPI,
 });
 
 const openai = new OpenAIApi(config);
