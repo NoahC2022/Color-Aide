@@ -12,6 +12,7 @@ import { Configuration, OpenAIApi } from 'openai';
 var fs = require('fs');
 
 const openAIAPI = process.env.OPENAI_API;
+console.log(openAIAPI);
 
 const config = new Configuration({
   apiKey: openAIAPI,
