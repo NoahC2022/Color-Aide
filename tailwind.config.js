@@ -8,8 +8,17 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'white': '#ffffff',
+        "white": "#808080",
       },
+      colors: {
+        velze: '#daeaf6',
+        navA: '#5b76a4',
+        lb1: '#5d4fb0',
+        lb2: '#7d708f',
+        lb3: '#5936c9',
+        lb4: '#5b76a4',
+        compA: '#c4d99c',
+      }
     },
     animation: {
       blob: "blob 7s infinite"
