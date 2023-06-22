@@ -11,7 +11,7 @@ import { saveAs } from 'file-saver';
 import { Configuration, OpenAIApi } from 'openai';
 var fs = require('fs');
 
-const openAIAPI = process.env.OPENAI_API;
+const openAIAPI = process.env.NEXT_PUBLIC_OPENAI_API;
 console.log(openAIAPI);
 
 const config = new Configuration({
