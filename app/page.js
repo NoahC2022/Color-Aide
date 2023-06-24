@@ -7,9 +7,10 @@ import tinycolor from 'tinycolor2';
 import { BsEyedropper } from 'react-icons/bs';
 import BeatLoader from "react-spinners/BeatLoader";
 import { saveAs } from 'file-saver';
+import fs from 'fs';
+import axios from 'axios';
 
 import { Configuration, OpenAIApi } from 'openai';
-var fs = require('fs');
 
 const openAIAPI = process.env.NEXT_PUBLIC_OPENAI_API;
 console.log(openAIAPI);
@@ -26,10 +27,19 @@ const override = {
   borderColor: "red"
 };
 
+// const saveDataToSpreadsheet = async (pickedColor, response) => {
+//   try {
+//     await axios.post('./saveData', { pickedColor, response });
+//     console.log('Data logged successfully');
+//   } catch (error) {
+//     console.error('Error logging data: ', error);
+//   }
+// };
+
 //removed server code from here
 
 export default function Home() {
-  let Runs = 0;
+  let runs = 0;
   const [isPromptSet, setIsPromptSet] = useState(false);
   const [pickedColor, setPickedColor] = React.useState("#B19CD9");
   const [color, setColor] = useState(tinycolor(pickedColor));
@@ -37,12 +47,12 @@ export default function Home() {
   const [darkColor, setDarkColor] = useState(color.lighten(10).toHexString());
 
   const getColor = ({ rgb, hex }) => {
-    console.log(Runs);
+    console.log(runs);
     console.log("Picked Color A" + pickedColor);
     console.log("DarkHex A: " + darkColor);
     console.log("LightHex A: " + lightColor);
-    Runs++;
-    if (Runs < 20) {
+    runs++;
+    if (runs < 20) {
       setPickedColor(hex);
       const updatedColor = tinycolor(hex);
       setColor(updatedColor);
@@ -61,9 +71,17 @@ export default function Home() {
   useEffect(() => {
     if (isPromptSet) {
       handleSubmit();
-      setIsPromptSet(false); // Reset the flag
+      setIsPromptSet(false);
     }
   }, [isPromptSet]);
+
+  // useEffect(() => {
+  //   if (response !== "<b>Blissful Lavender</b>\n<i>Purple</i>") {
+  //     const timestamp = new Date().toLocaleString();
+  //     // saveDataToSpreadsheet(pickedColor, response);
+  //   }
+  // }, [response]);
+  
 
   const [dropperSize, setDropperSize] = React.useState(1);
   const handleDropperSize = (size) => {
@@ -83,12 +101,6 @@ export default function Home() {
       prompt: prompt,
     });
 
-    // fs.writeFile("./data/response.json", completion, function(err) {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    // });
-
     console.log(completion)
     setLoading(false);
 
@@ -101,10 +113,10 @@ export default function Home() {
   const promptHelper = "Prompt 1: Return a name for this color. Refer to existing names from sites like color-hex, before coming up with your own- prefer existing names. Please answer with two to three words when naming. Add <b> tags around your answer, then a single newline character after. Prompt 2: Then, use two words to accurately identify the color using: light, dark, yellowish, blueish, redish, greyish for the first word and- blue, yellow, green, red, orange, purple, brown, pink, grey, black, or white for the second word. Include 1-3 asterisks by your answer to assert your confidence on the basic name. Wrap the answer in <i> tags. Do NOT use ANY commas or periods. Do not re-use any Prompt 2 words in Prompt 1's answer. Be creative, but descriptive for Prompt 1: ";
   const submission = promptHelper + pickedColor;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //e.preventDefault();
     setLoading(true);
-    const result = getCompletion();
+    const result = await getCompletion();
     console.log(result);
   };
 
