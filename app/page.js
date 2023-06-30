@@ -9,8 +9,20 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { saveAs } from 'file-saver';
 import fs from 'fs';
 import axios from 'axios';
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, push } from 'firebase/database';
 
 import { Configuration, OpenAIApi } from 'openai';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCEGIwwDLGK9_FpRcfq6ykC3KtP3Gmw3wc",
+  authDomain: "color-database-30d88.firebaseapp.com",
+  projectId: "color-database-30d88",
+  storageBucket: "color-database-30d88.appspot.com",
+  messagingSenderId: "251213654731",
+  appId: "1:251213654731:web:94fb400e6fe3021386494e",
+  measurementId: "G-N41DWS5K43"
+};
 
 const openAIAPI = process.env.NEXT_PUBLIC_OPENAI_API;
 console.log(openAIAPI);
@@ -45,6 +57,9 @@ export default function Home() {
   const [color, setColor] = useState(tinycolor(pickedColor));
   const [lightColor, setLightColor] = useState(color.darken(8).toHexString());
   const [darkColor, setDarkColor] = useState(color.lighten(10).toHexString());
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
 
   const getColor = ({ rgb, hex }) => {
     console.log(runs);
