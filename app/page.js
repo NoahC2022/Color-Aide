@@ -24,6 +24,9 @@ const firebaseConfig = {
   measurementId: "G-N41DWS5K43"
 };
 
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
 const openAIAPI = process.env.NEXT_PUBLIC_OPENAI_API;
 console.log(openAIAPI);
 
@@ -57,9 +60,6 @@ export default function Home() {
   const [color, setColor] = useState(tinycolor(pickedColor));
   const [lightColor, setLightColor] = useState(color.darken(8).toHexString());
   const [darkColor, setDarkColor] = useState(color.lighten(10).toHexString());
-
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
 
   const getColor = ({ rgb, hex }) => {
     console.log(runs);
