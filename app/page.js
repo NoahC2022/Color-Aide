@@ -90,12 +90,25 @@ export default function Home() {
     }
   }, [isPromptSet]);
 
-  // useEffect(() => {
-  //   if (response !== "<b>Blissful Lavender</b>\n<i>Purple</i>") {
-  //     const timestamp = new Date().toLocaleString();
-  //     // saveDataToSpreadsheet(pickedColor, response);
-  //   }
-  // }, [response]);
+  useEffect(() => {
+    if (response !== "<b>Blissful Lavender</b>\n<i>Purple</i>") {
+      const saveDataToFirebase = async () => {
+        try {
+          const colorDataRef = ref(database, 'colorData');
+          const newColorData = push(colorDataRef);
+          await set(newColorData, {
+            pickedColor,
+            response
+          });
+          console.log('Data saved successfully');
+        } catch (error) {
+          console.error('Error saving data: ', error);
+        }
+      };
+      
+      saveDataToFirebase();
+    }
+  }, [response]);
   
 
   const [dropperSize, setDropperSize] = React.useState(1);
