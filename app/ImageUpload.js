@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { push, ref as databaseRef } from 'firebase/database';
 import { database } from './page';
 
@@ -16,16 +16,13 @@ export default function ImageUploader() {
       const storageRef = ref(storage, 'images/' + file.name);
       await uploadBytes(storageRef, file);
 
-      // Get the image download URL
-      const downloadURL = await getDownloadURL(storageRef);
+      // Update the image URL state
+      setImageUrl(URL.createObjectURL(file));
 
       // Save the image URL to the Firebase Realtime Database
       const imagesRef = databaseRef(database, 'images');
       const newImageRef = push(imagesRef);
-      await newImageRef.set({ imageUrl: downloadURL });
-
-      // Update the image URL state
-      setImageUrl(downloadURL);
+      await newImageRef.set({ imageUrl: storageRef.fullPath });
 
       // Reset the selected image
       setSelectedImage(null);
