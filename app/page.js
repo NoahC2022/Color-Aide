@@ -6,11 +6,9 @@ import { EyeDropper } from 'react-eyedrop';
 import tinycolor from 'tinycolor2';
 import { BsEyedropper } from 'react-icons/bs';
 import BeatLoader from "react-spinners/BeatLoader";
-import { saveAs } from 'file-saver';
-import fs from 'fs';
 import axios from 'axios';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, push } from 'firebase/database';
+import { getDatabase, ref, push, set } from 'firebase/database';
 
 import { Configuration, OpenAIApi } from 'openai';
 
