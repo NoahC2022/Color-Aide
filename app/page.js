@@ -25,7 +25,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+export const database = getDatabase(app);
 
 const openAIAPI = process.env.NEXT_PUBLIC_OPENAI_API;
 console.log(openAIAPI);
@@ -57,6 +57,7 @@ export default function Home() {
   let runs = 0;
   const [isPromptSet, setIsPromptSet] = useState(false);
   const [pickedColor, setPickedColor] = React.useState("#B19CD9");
+  const [response, setResponse] = useState("<b>Blissful Lavender</b>\n<i>Purple</i>");
   const [color, setColor] = useState(tinycolor(pickedColor));
   const [lightColor, setLightColor] = useState(color.darken(8).toHexString());
   const [darkColor, setDarkColor] = useState(color.lighten(10).toHexString());
@@ -91,9 +92,11 @@ export default function Home() {
   }, [isPromptSet]);
 
   useEffect(() => {
-    if (response !== "<b>Blissful Lavender</b>\n<i>Purple</i>") {
+    if (response !== "<b>Blissful Lavender</b>\n<i>Purple</i>" && response !== "<b>Unidentified Color</b>\n<i>Unknown</i>") {
       const saveDataToFirebase = async () => {
         try {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+
           const colorDataRef = ref(database, 'colorData');
           const newColorData = push(colorDataRef);
           await set(newColorData, {
@@ -117,7 +120,6 @@ export default function Home() {
   }
 
   const [prompt, setPrompt] = useState("");
-  const [response, setResponse] = useState("<b>Blissful Lavender</b>\n<i>Purple</i>");
 
   const [loading, setLoading] = useState(false);
 
