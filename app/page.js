@@ -96,11 +96,10 @@ export default function Home() {
           await new Promise((resolve) => setTimeout(resolve, 500));
 
           const colorDataRef = ref(database, 'colorData');
-          const newColorData = push(colorDataRef);
-          await set(newColorData, {
+          await set(push(colorDataRef), {
             pickedColor,
-            response
-          });
+            response,
+          });          
           console.log('Data saved successfully');
         } catch (error) {
           console.error('Error saving data: ', error);
