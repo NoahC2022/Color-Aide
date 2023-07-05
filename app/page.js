@@ -9,6 +9,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, push, set } from 'firebase/database';
+import ColorDataTable from './DataTable';
 
 import { Configuration, OpenAIApi } from 'openai';
 
@@ -255,6 +256,9 @@ export default function Home() {
               onClick={() => handleDropperSize(20)}> L </button>
           </div>
           <br />
+          <div>
+            <ColorDataTable />
+          </div>
         </div>
       </div>
     </>
