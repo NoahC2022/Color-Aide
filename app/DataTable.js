@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 import { database } from './page';
 
-const DataTable = () => {
+const ColorDataTable = () => {
   const [colorData, setColorData] = useState([]);
 
   useEffect(() => {
