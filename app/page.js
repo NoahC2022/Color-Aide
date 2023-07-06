@@ -9,8 +9,6 @@ import BeatLoader from "react-spinners/BeatLoader";
 import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, push, set } from 'firebase/database';
-import ColorDataTable from './DataTable';
-
 import { Configuration, OpenAIApi } from 'openai';
 
 const firebaseConfig = {
@@ -60,6 +58,10 @@ export default function Home() {
   const [color, setColor] = useState(tinycolor(pickedColor));
   const [lightColor, setLightColor] = useState(color.darken(8).toHexString());
   const [darkColor, setDarkColor] = useState(color.lighten(10).toHexString());
+
+  var firebaseRef = firebase.database().ref('Color');//WIP
+  var firebaseRef2 = firebase.database().ref('Name');//WIP
+
 
   const getColor = ({ rgb, hex }) => {
     console.log(runs);
@@ -256,9 +258,6 @@ export default function Home() {
               onClick={() => handleDropperSize(20)}> L </button>
           </div>
           <br />
-          <div>
-            <ColorDataTable />
-          </div>
         </div>
       </div>
     </>
