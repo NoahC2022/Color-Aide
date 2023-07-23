@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+
 export const saveColorName = async (colorHex, name) => {
   const record = await prisma.colorName.create({
     data: {
