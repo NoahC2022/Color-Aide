@@ -81,7 +81,7 @@ export default function Home() {
   //     // saveDataToSpreadsheet(pickedColor, response);
   //   }
   // }, [response]);
-  
+
 
   const [dropperSize, setDropperSize] = React.useState(1);
   const handleDropperSize = (size) => {
@@ -117,6 +117,8 @@ export default function Home() {
     //e.preventDefault();
     setLoading(true);
     const result = await getCompletion();
+
+    // Save the result to the database
     console.log(result);
   };
 
