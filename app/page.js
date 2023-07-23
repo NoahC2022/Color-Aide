@@ -11,6 +11,7 @@ import fs from 'fs';
 import axios from 'axios';
 
 import { Configuration, OpenAIApi } from 'openai';
+import {saveColorName} from "@/app/_actions/save-color-name";
 
 const openAIAPI = process.env.NEXT_PUBLIC_OPENAI_API;
 console.log(openAIAPI);
@@ -81,7 +82,7 @@ export default function Home() {
   //     // saveDataToSpreadsheet(pickedColor, response);
   //   }
   // }, [response]);
-  
+
 
   const [dropperSize, setDropperSize] = React.useState(1);
   const handleDropperSize = (size) => {
@@ -117,7 +118,11 @@ export default function Home() {
     //e.preventDefault();
     setLoading(true);
     const result = await getCompletion();
-    console.log(result);
+    console.log("result: ", result)
+
+    console.log("save color name to database...")
+    // Save the result to the database
+    saveColorName(pickedColor, result)
   };
 
   const handleClick = () => {
